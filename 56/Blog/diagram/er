@@ -1,0 +1,12 @@
+USERS
+POSTS
+TAGS
+CATEGORIES
+
+USERS --- HAS-MANY ---> POSTS <--- HAS-MANY --- CATEGORIES
+POSTS --- HAS-MANY---> TAGS
+TAGS  --- HAS-MANY ---> POSTS
+
+normalizando posts y tags
+
+POSTS ---- HAS-MANY ---> POST_TAG <--- HAS-MANY --- TAGS
