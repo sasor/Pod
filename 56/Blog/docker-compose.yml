@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  db:
+    image: postgres:alpine
+    volumes:
+      - ./dbdata:/var/lib/postgresql/data
+    ports:
+      - '54032:5432'
+  app:
+    image: laravel:base
+    user: '1000:1000'
+    volumes:
+      - ./:/var/www
+    working_dir: /var/www/
+    links:
+      - db
+  web:
+    image: nginx:alpine
+    volumes:
+      - ./site.conf:/etc/nginx/conf.d/default.conf
+      - ./:/var/www
+    ports:
+      - '80:80'
+    links:
+      - app
