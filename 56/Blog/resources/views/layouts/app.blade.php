@@ -11,7 +11,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{--<script src="{{ asset('js/app.js') }}" defer></script>--}}
+    <script type="text/javascript" rel="script" src="{{asset('js/app.js')}}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -25,7 +26,7 @@
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'MyBlog') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -34,7 +35,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li><a class="nav-link" href="{{ route('blog') }}">Blog</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -48,6 +49,9 @@
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @else
+                            <li><a class="nav-link" href="{{ route('tags.index') }}">Etiquetas</a></li>
+                            <li><a class="nav-link" href="{{ route('categories.index') }}">Categorias</a></li>
+                            <li><a class="nav-link" href="{{ route('posts.index') }}">Entradas</a></li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -71,9 +75,19 @@
             </div>
         </nav>
 
+        @if(session('info'))
+            <div class="container mt-3">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="alert alert-success">{{ session('info') }}</div>
+                    </div>
+                </div>
+            </div>
+        @endif
         <main class="py-4">
             @yield('content')
         </main>
     </div>
+    @yield('scripts')
 </body>
 </html>
